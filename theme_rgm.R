@@ -4,6 +4,10 @@
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
 ##
+## 1.1 2015/05/28
+##   Option "axis.black" draws axes, ticks and labels in black, not grey.
+##   Option "legend.position" controls legend position *and* justification.
+##
 ## 1.0 2015/03/11
 ##   Initial version of the theme.
 ##
@@ -12,9 +16,15 @@
 ##   BSD 2-Clause license (http://opensource.org/licenses/BSD-2-Clause).
 ##
 
+## Ensure the required libraries have been loaded.
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(grid))
+suppressPackageStartupMessages(library(scales))
+
 theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
+                      legend.position=c(0, 1),
                       key.box=1.25, key.label=NULL, facet.label=1.25,
-                      axis.line=0.5, axis.label=0.8,
+                      axis.line=0.5, axis.label=0.8, axis.black=FALSE,
                       axis.x=c('normal', 'simple', 'hide'),
                       axis.y=c('normal', 'simple', 'hide'),
                       hide.title=TRUE, CairoFonts=TRUE) {
@@ -24,25 +34,24 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     ##   p <- ggplot(...) + ... + theme_rgm(...) + theme(...)
     ##
     ## Args:
-    ##   base.size:      The base font size.
-    ##   legend.bg:      The legend background colour.
-    ##   legend.border:  The legend border colour.
-    ##   key.box:        The relative size of legend key boxes.
-    ##   key.label:      The relative size of legend key labels.
-    ##   facet.label:    The relative size of facet labels.
-    ##   axis.line:      The width of axis lines.
-    ##   axis.label:     The relative size of axis text.
-    ##   axis.x:         Hide ticks ('simple') or the entire axis ('hide').
-    ##   axis.y:         Hide ticks ('simple') or the entire axis ('hide').
-    ##   hide.title:     Whether to display plot titles.
-    ##   CairoFonts:     Configure Cairo to use the Open Sans font family.
+    ##   base.size:        The base font size.
+    ##   legend.bg:        The legend background colour.
+    ##   legend.border:    The legend border colour.
+    ##   legend.position:  The legend position *and* justification.
+    ##   key.box:          The relative size of legend key boxes.
+    ##   key.label:        The relative size of legend key labels.
+    ##   facet.label:      The relative size of facet labels.
+    ##   axis.line:        The width of axis lines.
+    ##   axis.label:       The relative size of axis text.
+    ##   axis.black:       Draw axes, ticks and labels in black, not grey.
+    ##   axis.x:           Hide ticks ('simple') or the entire axis ('hide').
+    ##   axis.y:           Hide ticks ('simple') or the entire axis ('hide').
+    ##   hide.title:       Whether to display plot titles.
+    ##   CairoFonts:       Configure Cairo to use the Open Sans font family.
     ##
     ## Returns:
     ##   The custom ggplot2 theme.
 
-    ## Ensure the required libraries have been loaded.
-    suppressPackageStartupMessages(library(ggplot2))
-    suppressPackageStartupMessages(library(grid))
     if (CairoFonts) {
         suppressPackageStartupMessages(library(Cairo))
 
@@ -63,6 +72,11 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     ## Determine how to display each axis.
     axis.x <- match.arg(axis.x)
     axis.y <- match.arg(axis.y)
+    if (axis.black) {
+        axis.colour <- "black"
+    } else {
+        axis.colour <- "grey50"
+    }
 
     ## Load the default ggplot2 theme and modify as desired.
     plot.theme <- theme_grey(base.size)
@@ -78,12 +92,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     ##
     ## Draw axes with thin grey lines and axis values in small grey text.
     ##
-    plot.theme$axis.line <- element_line(colour = "grey50", size = axis.line)
-    plot.theme$axis.ticks <- element_line(colour = "grey50", size = axis.line)
-    plot.theme$axis.text.x <- element_text(colour = "grey50",
+    plot.theme$axis.line <- element_line(colour = axis.colour,
+                                         size = axis.line)
+    plot.theme$axis.ticks <- element_line(colour = axis.colour,
+                                          size = axis.line)
+    plot.theme$axis.text.x <- element_text(colour = axis.colour,
                                            size = base.size * axis.label,
                                            vjust = 1, lineheight = 0.9)
-    plot.theme$axis.text.y <- element_text(colour = "grey50",
+    plot.theme$axis.text.y <- element_text(colour = axis.colour,
                                            size = base.size * axis.label,
                                            hjust = 1, lineheight = 0.9)
 
@@ -143,6 +159,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     plot.theme$legend.text <- element_text(colour="black",
                                            size = base.size * key.label,
                                            vjust = 0, hjust = 3)
+
+    ##
+    ##
+    ## Set the legend position and justification, if provided.
+    if (! (is.null(legend.position) || is.na(legend.position))) {
+        plot.theme$legend.position = legend.position
+        plot.theme$legend.justification = legend.position
+    }
 
     ##
     ## Don't draw a shaded box around the key for each line series.

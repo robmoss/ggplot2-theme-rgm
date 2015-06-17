@@ -18,3 +18,9 @@ This work is made available under the BSD 2-Clause license (see `LICENSE`).
 
     # Set the theme as the default theme.
     theme_set(theme_rgm())
+
+## Install
+
+Clone the repository (into the directory `ggplot2-theme-rgm`) and run:
+
+    R CMD INSTALL ggplot2-theme-rgm

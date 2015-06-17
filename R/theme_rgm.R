@@ -4,6 +4,9 @@
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
 ##
+## 1.2 2015/06/17
+##   Convert from a single source file into an installable R package.
+##
 ## 1.1 2015/05/28
 ##   Option "axis.black" draws axes, ticks and labels in black, not grey.
 ##   Option "legend.position" controls legend position *and* justification.
@@ -16,11 +19,30 @@
 ##   BSD 2-Clause license (http://opensource.org/licenses/BSD-2-Clause).
 ##
 
-## Ensure the required libraries have been loaded.
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(grid))
-suppressPackageStartupMessages(library(scales))
-
+#' Define the plotting theme.
+#'
+#' @param base.size        The base font size.
+#' @param legend.bg        The legend background colour.
+#' @param legend.border    The legend border colour.
+#' @param legend.position  The legend position *and* justification.
+#' @param key.box          The relative size of legend key boxes.
+#' @param key.label        The relative size of legend key labels.
+#' @param facet.label      The relative size of facet labels.
+#' @param axis.line        The width of axis lines.
+#' @param axis.label       The relative size of axis text.
+#' @param axis.black       Draw axes, ticks and labels in black, not grey.
+#' @param axis.x           Hide ticks ('simple') or the entire axis ('hide').
+#' @param axis.y           Hide ticks ('simple') or the entire axis ('hide').
+#' @param hide.title       Whether to display plot titles.
+#' @param CairoFonts       Configure Cairo to use the Open Sans font family.
+#'
+#' @return The custom ggplot2 theme.
+#'
+#' @examples
+#' \dontrun{theme_set(theme_rgm(axis.black = TRUE, CairoFonts = FALSE))}
+#' \dontrun{p <- ggplot(...) + ... + theme_rgm(...)}
+#'
+#' @export
 theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                       legend.position=c(0, 1),
                       key.box=1.25, key.label=NULL, facet.label=1.25,
@@ -28,32 +50,11 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                       axis.x=c('normal', 'simple', 'hide'),
                       axis.y=c('normal', 'simple', 'hide'),
                       hide.title=TRUE, CairoFonts=TRUE) {
-    ## Define the plotting theme.
-    ##
-    ## Usage:
-    ##   p <- ggplot(...) + ... + theme_rgm(...) + theme(...)
-    ##
-    ## Args:
-    ##   base.size:        The base font size.
-    ##   legend.bg:        The legend background colour.
-    ##   legend.border:    The legend border colour.
-    ##   legend.position:  The legend position *and* justification.
-    ##   key.box:          The relative size of legend key boxes.
-    ##   key.label:        The relative size of legend key labels.
-    ##   facet.label:      The relative size of facet labels.
-    ##   axis.line:        The width of axis lines.
-    ##   axis.label:       The relative size of axis text.
-    ##   axis.black:       Draw axes, ticks and labels in black, not grey.
-    ##   axis.x:           Hide ticks ('simple') or the entire axis ('hide').
-    ##   axis.y:           Hide ticks ('simple') or the entire axis ('hide').
-    ##   hide.title:       Whether to display plot titles.
-    ##   CairoFonts:       Configure Cairo to use the Open Sans font family.
-    ##
-    ## Returns:
-    ##   The custom ggplot2 theme.
-
     if (CairoFonts) {
-        suppressPackageStartupMessages(library(Cairo))
+        ## Attempt to load the Cairo library, as specified.
+        if (! require(Cairo, quietly = TRUE)) {
+            stop("Cairo is not installed", call. = FALSE)
+        }
 
         ## Use Open Sans, since it includes the Greek alphabet.
         font.light <- "Open Sans:style=Light"

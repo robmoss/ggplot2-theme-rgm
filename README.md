@@ -11,4 +11,10 @@ This work is made available under the BSD 2-Clause license (see `LICENSE`).
 
 ## Usage
 
-    p <- ggplot(...) + ... + theme_rgm(...) + theme(...)
+    library(themergm)
+
+    # Add the theme to an existing plot.
+    p <- ggplot(...) + ... + theme_rgm()
+
+    # Set the theme as the default theme.
+    theme_set(theme_rgm())

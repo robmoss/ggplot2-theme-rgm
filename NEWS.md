@@ -1,3 +1,12 @@
+1.3 (2015/06/22)
+----------------
+
+* Option "axis.title" controls the relative size of axis titles.
+
+* Warn if "CairoFonts" is true but the Cairo package is not installed,
+  rather than stopping execution (as was previously the case).
+
+
 1.2 (2015/06/17)
 ----------------
 

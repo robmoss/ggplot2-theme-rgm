@@ -55,15 +55,15 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     if (CairoFonts) {
         ## Attempt to load the Cairo library, as specified.
         if (! require(Cairo, quietly = TRUE)) {
-            stop("Cairo is not installed", call. = FALSE)
+            warning("Cairo is not installed", call. = FALSE)
+        } else {
+            ## Use Open Sans, since it includes the Greek alphabet.
+            font.light <- "Open Sans:style=Light"
+            font.heavy <- "Open Sans:style=Regular"
+            CairoFonts(regular = font.light, italic = font.light,
+                       bold = font.heavy, bolditalic=font.heavy,
+                       symbol=font.light)
         }
-
-        ## Use Open Sans, since it includes the Greek alphabet.
-        font.light <- "Open Sans:style=Light"
-        font.heavy <- "Open Sans:style=Regular"
-        CairoFonts(regular = font.light, italic = font.light,
-                   bold = font.heavy, bolditalic=font.heavy,
-                   symbol=font.light)
     }
 
     ## Determine the size of the legend key labels.

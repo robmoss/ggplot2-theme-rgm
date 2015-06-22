@@ -30,6 +30,8 @@ theme_rgm(base.size = 16, legend.bg = NA, legend.border = NA,
 
 \item{axis.label}{The relative size of axis text.}
 
+\item{axis.title}{The relative size of axis titles.}
+
 \item{axis.black}{Draw axes, ticks and labels in black, not grey.}
 
 \item{axis.x}{Hide ticks ('simple') or the entire axis ('hide').}
@@ -50,4 +52,3 @@ Define the plotting theme.
 \dontrun{theme_set(theme_rgm(axis.black = TRUE, CairoFonts = FALSE))}
 \dontrun{p <- ggplot(...) + ... + theme_rgm(...)}
 }
-

@@ -30,6 +30,7 @@
 #' @param facet.label      The relative size of facet labels.
 #' @param axis.line        The width of axis lines.
 #' @param axis.label       The relative size of axis text.
+#' @param axis.title       The relative size of axis titles.
 #' @param axis.black       Draw axes, ticks and labels in black, not grey.
 #' @param axis.x           Hide ticks ('simple') or the entire axis ('hide').
 #' @param axis.y           Hide ticks ('simple') or the entire axis ('hide').
@@ -46,7 +47,8 @@
 theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                       legend.position=c(0, 1),
                       key.box=1.25, key.label=NULL, facet.label=1.25,
-                      axis.line=0.5, axis.label=0.8, axis.black=FALSE,
+                      axis.line=0.5, axis.label=0.8,
+                      axis.title=0.8, axis.black=FALSE,
                       axis.x=c('normal', 'simple', 'hide'),
                       axis.y=c('normal', 'simple', 'hide'),
                       hide.title=TRUE, CairoFonts=TRUE) {
@@ -103,6 +105,12 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     plot.theme$axis.text.y <- element_text(colour = axis.colour,
                                            size = base.size * axis.label,
                                            hjust = 1, lineheight = 0.9)
+    plot.theme$axis.title.x <- element_text(colour = axis.colour,
+                                            size = base.size * axis.title,
+                                            vjust = -0.5, lineheight = 0.9)
+    plot.theme$axis.title.y <- element_text(colour = axis.colour,
+                                            size = base.size * axis.title,
+                                            angle = 90, vjust = 1, lineheight = 0.9)
 
     ##
     ## Simplify or hide the axes, as specified.

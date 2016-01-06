@@ -1,8 +1,12 @@
 ##
 ## theme_rgm.R
-## Robert Moss, 2015
+## Robert Moss, 2015-2016
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
+##
+## 1.4 2016/01/06
+##   Fix several warnings raised by `R CMD check`.
+##   Correctly document the "axis.title" option.
 ##
 ## 1.3 2015/06/22
 ##   Option "axis.title" controls the relative size of axis titles.
@@ -58,15 +62,15 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                       hide.title=TRUE, CairoFonts=TRUE) {
     if (CairoFonts) {
         ## Attempt to load the Cairo library, as specified.
-        if (! require(Cairo, quietly = TRUE)) {
+        if (! requireNamespace("Cairo", quietly = TRUE)) {
             warning("Cairo is not installed", call. = FALSE)
         } else {
             ## Use Open Sans, since it includes the Greek alphabet.
             font.light <- "Open Sans:style=Light"
             font.heavy <- "Open Sans:style=Regular"
-            CairoFonts(regular = font.light, italic = font.light,
-                       bold = font.heavy, bolditalic=font.heavy,
-                       symbol=font.light)
+            Cairo::CairoFonts(regular = font.light, italic = font.light,
+                              bold = font.heavy, bolditalic=font.heavy,
+                              symbol=font.light)
         }
     }
 

@@ -1,3 +1,11 @@
+1.4 (2016/01/06)
+----------------
+
+* Fix several warnings raised by `R CMD check`.
+
+* Correctly document the "axis.title" option.
+
+
 1.3 (2015/06/22)
 ----------------
 

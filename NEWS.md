@@ -1,3 +1,13 @@
+1.5 (2016/03/11)
+----------------
+
+* Add margins to axis tick labels and axis titles.
+
+* Increase the default size of axis tick labels and axis titles.
+
+* Option "axis.black" is now TRUE by default.
+
+
 1.4 (2016/01/06)
 ----------------
 

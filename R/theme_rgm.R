@@ -4,6 +4,11 @@
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
 ##
+## 1.5 2016/03/11
+##   Add margins to axis tick labels and axis titles.
+##   Increase the default size of axis tick labels and axis titles.
+##   Option "axis.black" is now TRUE by default.
+##
 ## 1.4 2016/01/06
 ##   Fix several warnings raised by `R CMD check`.
 ##   Correctly document the "axis.title" option.
@@ -55,8 +60,8 @@
 theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                       legend.position=c(0, 1),
                       key.box=1.25, key.label=NULL, facet.label=1.25,
-                      axis.line=0.5, axis.label=0.8,
-                      axis.title=0.8, axis.black=FALSE,
+                      axis.line=0.5, axis.label=1.0,
+                      axis.title=1.25, axis.black=TRUE,
                       axis.x=c('normal', 'simple', 'hide'),
                       axis.y=c('normal', 'simple', 'hide'),
                       hide.title=TRUE, CairoFonts=TRUE) {
@@ -101,6 +106,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     plot.theme$panel.grid.minor <- element_line(colour = NA, size = 0)
 
     ##
+    ## Define margins for axis tick labels and titles.
+    ##
+    margin.text.x <- unit(base.size * c(0.25, 0, 0, 0), "pt")
+    margin.text.y <- unit(base.size * c(0, 0.25, 0, 0), "pt")
+    margin.title.x <- unit(base.size * c(0.5, 0, 0, 0), "pt")
+    margin.title.y <- unit(base.size * c(0, 0.5, 0, 0), "pt")
+
+    ##
     ## Draw axes with thin grey lines and axis values in small grey text.
     ##
     plot.theme$axis.line <- element_line(colour = axis.colour,
@@ -109,15 +122,19 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                                           size = axis.line)
     plot.theme$axis.text.x <- element_text(colour = axis.colour,
                                            size = base.size * axis.label,
+                                           margin = margin.text.x,
                                            vjust = 1, lineheight = 0.9)
     plot.theme$axis.text.y <- element_text(colour = axis.colour,
                                            size = base.size * axis.label,
+                                           margin = margin.text.y,
                                            hjust = 1, lineheight = 0.9)
     plot.theme$axis.title.x <- element_text(colour = axis.colour,
                                             size = base.size * axis.title,
+                                            margin = margin.title.x,
                                             vjust = -0.5, lineheight = 0.9)
     plot.theme$axis.title.y <- element_text(colour = axis.colour,
                                             size = base.size * axis.title,
+                                            margin = margin.title.y,
                                             angle = 90, vjust = 1, lineheight = 0.9)
 
     ##
@@ -178,11 +195,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                                            vjust = 0, hjust = 3)
 
     ##
-    ##
     ## Set the legend position and justification, if provided.
+    ##
     if (! (is.null(legend.position) || is.na(legend.position))) {
         plot.theme$legend.position = legend.position
-        plot.theme$legend.justification = legend.position
+        ## Don't set justification if position is, e.g., "top".
+        if (is.numeric(legend.position)) {
+            plot.theme$legend.justification = legend.position
+        }
     }
 
     ##

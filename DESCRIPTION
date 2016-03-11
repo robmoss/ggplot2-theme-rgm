@@ -1,6 +1,6 @@
 Package: themergm
 Title: Provides the "theme_rgm" plotting theme for ggplot2
-Version: 1.4
+Version: 1.5
 Author: Rob Moss <robm.dev@gmail.com>
 Maintainer: Rob Moss <robm.dev@gmail.com>
 Description: A minimal plotting theme for ggplot2.

@@ -6,8 +6,8 @@
 \usage{
 theme_rgm(base.size = 16, legend.bg = NA, legend.border = NA,
   legend.position = c(0, 1), key.box = 1.25, key.label = NULL,
-  facet.label = 1.25, axis.line = 0.5, axis.label = 0.8,
-  axis.title=0.8, axis.black = FALSE,
+  facet.label = 1.25, axis.line = 0.5, axis.label = 1.0,
+  axis.title=1.25, axis.black = TRUE,
   axis.x = c("normal", "simple", "hide"),
   axis.y = c("normal", "simple", "hide"), hide.title = TRUE,
   CairoFonts = TRUE)

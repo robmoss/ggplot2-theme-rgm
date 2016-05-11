@@ -4,6 +4,10 @@
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
 ##
+## 1.6 2016/05/11
+##   Correct the ggplot2 dependency to 2.0.0 or later, since this package
+##   relies on "element_text()" accepting a "margins" argument.
+##
 ## 1.5 2016/03/11
 ##   Add margins to axis tick labels and axis titles.
 ##   Increase the default size of axis tick labels and axis titles.

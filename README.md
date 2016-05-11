@@ -24,3 +24,6 @@ This work is made available under the BSD 2-Clause license (see `LICENSE`).
 Clone the repository (into the directory `ggplot2-theme-rgm`) and run:
 
     R CMD INSTALL ggplot2-theme-rgm
+
+Note that this package requires `ggplot2 >= 2.0.0`, since it relies on
+`element_text()` accepting a `margins` argument.

@@ -1,3 +1,9 @@
+1.7 (2016/05/16)
+----------------
+
+* Apply common settings to each axis, to override any default settings.
+
+
 1.6 (2016/05/11)
 ----------------
 

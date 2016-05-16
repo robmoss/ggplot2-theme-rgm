@@ -4,6 +4,9 @@
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
 ##
+## 1.7 2016/05/16
+##   Apply common settings to each axis, to override any default settings.
+##
 ## 1.6 2016/05/11
 ##   Correct the ggplot2 dependency to 2.0.0 or later, since this package
 ##   relies on "element_text()" accepting a "margins" argument.
@@ -142,6 +145,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
                                             angle = 90, vjust = 1, lineheight = 0.9)
 
     ##
+    ## Apply common settings to each axis, to override any default settings.
+    ##
+    plot.theme$axis.line.x <- plot.theme$axis.line
+    plot.theme$axis.line.y <- plot.theme$axis.line
+    plot.theme$axis.ticks.x <- plot.theme$axis.ticks
+    plot.theme$axis.ticks.y <- plot.theme$axis.ticks
+
+    ##
     ## Simplify or hide the axes, as specified.
     ##
     if (axis.x == 'simple') {
@@ -172,6 +183,12 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     ## Leave some space between facetted plots.
     ##
     plot.theme$panel.margin <- unit(2, "lines")
+
+    ##
+    ## Apply common settings to each axis, to override any default settings.
+    ##
+    plot.theme$panel.margin.x <- plot.theme$panel.margin
+    plot.theme$panel.margin.y <- plot.theme$panel.margin
 
     ##
     ## Display facet titles in large black text, to emphasise the facetting.

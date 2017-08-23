@@ -1,3 +1,13 @@
+1.8 (2017/08/23)
+----------------
+
+* Increase the ggplot2 dependency to 2.2.0 or later, "panel.margin" is now
+  deprecated and has been superseded by "panel.spacing".
+
+* Ensure that horizontal facet labels have sufficient vertical spacing.
+
+* Correct the alignment of vertical facet labels.
+
 1.7 (2016/05/16)
 ----------------
 

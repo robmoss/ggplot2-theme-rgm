@@ -1,8 +1,14 @@
 ##
 ## theme_rgm.R
-## Robert Moss, 2015-2016
+## Robert Moss, 2015-2017
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
+##
+## 1.8 2017/08/23
+##   Increase the ggplot2 dependency to 2.2.0 or later, "panel.margin" is now
+##   deprecated and has been superseded by "panel.spacing".
+##   Ensure that horizontal facet labels have sufficient vertical spacing.
+##   Correct the alignment of vertical facet labels.
 ##
 ## 1.7 2016/05/16
 ##   Apply common settings to each axis, to override any default settings.
@@ -182,13 +188,13 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     ##
     ## Leave some space between facetted plots.
     ##
-    plot.theme$panel.margin <- unit(2, "lines")
+    plot.theme$panel.spacing <- unit(2, "lines")
 
     ##
     ## Apply common settings to each axis, to override any default settings.
     ##
-    plot.theme$panel.margin.x <- plot.theme$panel.margin
-    plot.theme$panel.margin.y <- plot.theme$panel.margin
+    plot.theme$panel.spacing.x <- plot.theme$panel.spacing
+    plot.theme$panel.spacing.y <- plot.theme$panel.spacing
 
     ##
     ## Display facet titles in large black text, to emphasise the facetting.
@@ -196,10 +202,14 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     plot.theme$strip.background <- element_rect(colour = NA, fill = NA)
     plot.theme$strip.text.x <- element_text(colour = "black", face="bold",
                                             size = base.size * facet.label,
+                                            # Add needed vertical spacing.
+                                            margin = margin(t = base.size / 4,
+                                                            b = base.size / 2,
+                                                            unit = 'pt'),
                                             vjust = 1)
     plot.theme$strip.text.y <- element_text(colour = "black", face="bold",
                                             size = base.size * facet.label,
-                                            angle = -90, vjust = 1)
+                                            angle = -90, vjust = 0.5)
 
     ##
     ## By default, don't draw a border or background for plot legends.

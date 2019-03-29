@@ -1,8 +1,12 @@
 ##
 ## theme_rgm.R
-## Robert Moss, 2015-2017
+## Robert Moss, 2015-2019
 ##
 ## This file provides the "theme_rgm" plotting theme for ggplot2.
+##
+## 1.9 2019/03/29
+##   Correct the alignment of legend labels, and define their margins directly
+##   rather than by misusing their 'hjust' and 'vjust' attributes.
 ##
 ## 1.8 2017/08/23
 ##   Increase the ggplot2 dependency to 2.2.0 or later, "panel.margin" is now
@@ -223,7 +227,9 @@ theme_rgm <- function(base.size=16, legend.bg=NA, legend.border=NA,
     plot.theme$legend.key.size <- unit(key.box, "cm")
     plot.theme$legend.text <- element_text(colour="black",
                                            size = base.size * key.label,
-                                           vjust = 0, hjust = 3)
+                                           vjust = 0.5, hjust = 0,
+                                           margin = margin(l = 4,
+                                                           unit = 'pt'))
 
     ##
     ## Set the legend position and justification, if provided.

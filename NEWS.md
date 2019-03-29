@@ -1,3 +1,10 @@
+1.9 (2019/03/29)
+----------------
+
+* Correct the alignment of legend labels, and define their margins directly
+  rather than by misusing their 'hjust' and 'vjust' attributes.
+
+
 1.8 (2017/08/23)
 ----------------
 
@@ -7,6 +14,7 @@
 * Ensure that horizontal facet labels have sufficient vertical spacing.
 
 * Correct the alignment of vertical facet labels.
+
 
 1.7 (2016/05/16)
 ----------------
